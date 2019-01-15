@@ -15,7 +15,6 @@
       <url>http://54.194.40.171:8082/artifactory/example-repo-local</url>
       <layout>default</layout>
     </repository>
-    ...
 </distributionManagement>
 
   <parent>
