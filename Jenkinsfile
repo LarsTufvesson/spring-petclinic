@@ -11,7 +11,7 @@ pipeline {
             steps {
                 parallel(
                         install: {
-                            sh "./mvnw package"
+                            sh "mvn package"
                         },
                         sonar: {
                             sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
