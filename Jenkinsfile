@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('install and sonar parallel') {
+        stage('Build and check') {
             steps {
                 parallel(
                         install: {
@@ -24,7 +24,14 @@ pipeline {
                 }
             }
         }
-        stage('deploy') {
+        stage('Deploy to production') {
+            steps {
+                sh "ssh admin@52.18.219.125 sudo systemctl stop petclinic2"
+                sh "scp spring-petclinic-2.1.0.BUILD-SNAPSHOT.jar admin@52.18.219.125:/home/admin/fromBuildServer/"
+                sh "ssh admin@52.18.219.125 sudo systemctl start petclinic2"
+            }
+        }
+        stage('Deploy to Artifactory') {
             steps {
                 configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
                     sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL}"
