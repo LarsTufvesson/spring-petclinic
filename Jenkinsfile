@@ -27,7 +27,7 @@ pipeline {
         stage('Deploy to production') {
             steps {
                 sh "ssh admin@52.18.219.125 sudo systemctl stop petclinic2"
-                sh "scp spring-petclinic-2.1.0.BUILD-SNAPSHOT.jar admin@52.18.219.125:/home/admin/fromBuildServer/"
+                sh "scp **/target/*.jar admin@52.18.219.125:/home/admin/fromBuildServer/"
                 sh "ssh admin@52.18.219.125 sudo systemctl start petclinic2"
             }
         }
