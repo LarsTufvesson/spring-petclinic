@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('install and sonar parallel') {
+        stage('Build and check parallel') {
             steps {
                 parallel(
                         install: {
