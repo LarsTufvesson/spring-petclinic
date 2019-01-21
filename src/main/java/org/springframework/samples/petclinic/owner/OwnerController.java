@@ -25,6 +25,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Metrics;
+
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Map;
@@ -38,9 +42,13 @@ import java.util.Map;
 @Controller
 class OwnerController {
 
+    private Counter requests = Metrics.counter("lat_requests_total");
+
+    // Define a histogram metric for /prometheus
+    //static final Histogram requestLatency = Histogram.build().name("requests_latency_seconds").help("Request latency in seconds.").register();
+
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
     private final OwnerRepository owners;
-
 
     public OwnerController(OwnerRepository clinicService) {
         this.owners = clinicService;
@@ -76,14 +84,30 @@ class OwnerController {
 
     @GetMapping("/owners")
     public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model) {
+        Collection<Owner> results;
 
-        // allow parameterless GET request for /owners to return all records
-        if (owner.getLastName() == null) {
-            owner.setLastName(""); // empty string signifies broadest possible search
+        // Increase the counter metric
+	requests.increment();
+
+	// Start the histogram timer
+	//Histogram.Timer requestTimer = requestLatency.startTimer();
+        try {
+
+            // allow parameterless GET request for /owners to return all records
+            if (owner.getLastName() == null) {
+                owner.setLastName(""); // empty string signifies broadest possible search
+            }
+
+            // find owners by last name
+            results = this.owners.findByLastName(owner.getLastName());
+
+        } finally {
+
+            // Stop the histogram timer
+            //requestTimer.observeDuration();
+
         }
 
-        // find owners by last name
-        Collection<Owner> results = this.owners.findByLastName(owner.getLastName());
         if (results.isEmpty()) {
             // no owners found
             result.rejectValue("lastName", "notFound", "not found");
