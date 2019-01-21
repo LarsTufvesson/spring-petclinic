@@ -24,6 +24,16 @@ pipeline {
                 }
             }
         }
+	stage('Run API tests'){
+		sh sudo systemctl start petclinic
+		sh curl -u 70yrVBaucYe3KCyD: "https://assertible.com/deployments" -d'{
+    "service": "40a35bd7-dece-4cf4-913d-30f8a718efd5",
+    "environmentName": "production",
+    "version": "v1",
+    "endpoint": "/vets"
+}'
+		sh sudo systemctl stop petclinic
+	}
         stage('Deploy to production') {
             steps {
                 sh "ssh admin@52.18.219.125 sudo systemctl stop petclinic2"
