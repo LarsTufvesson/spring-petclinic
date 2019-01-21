@@ -27,7 +27,13 @@ pipeline {
 	stage('Run API tests'){
 		steps {
 			sh "sudo systemctl start petclinic"
+<<<<<<< HEAD
 			sh "curl -XPOST https://assertible.com/apis/40a35bd7-dece-4cf4-913d-30f8a718efd5/run?api_token=70yrVBaucYe3KCyD"
+=======
+			sh "curl -XPOST https://assertible.com/apis/40a35bd7-dece-4cf4-913d-30f8a718efd5/run?api_token=70yrVBaucYe3KCyD -d'{
+                        "endpoint": "/vets"
+                       }"
+>>>>>>> 260cf80f45992f558044701b418c01976f44437d
 			sh "sudo systemctl stop petclinic"
 		}
 	}
