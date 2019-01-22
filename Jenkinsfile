@@ -27,6 +27,7 @@ pipeline {
 	stage('Run API tests'){
 		steps {
 			sh "ssh admin@34.240.215.249 sudo systemctl start petclinic"
+			sh "sleep 20s"
 			sh "curl -XPOST https://assertible.com/apis/40a35bd7-dece-4cf4-913d-30f8a718efd5/run?api_token=70yrVBaucYe3KCyD"
 			sh "ssh admin@34.240.215.249 sudo systemctl stop petclinic"
 		}
