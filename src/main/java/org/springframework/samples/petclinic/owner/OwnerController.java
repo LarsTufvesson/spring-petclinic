@@ -83,6 +83,7 @@ class OwnerController {
     }
 
     @GetMapping("/owners")
+    @Timed(value = "lat_time_processFindForm")
     public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model) {
         Collection<Owner> results;
 
