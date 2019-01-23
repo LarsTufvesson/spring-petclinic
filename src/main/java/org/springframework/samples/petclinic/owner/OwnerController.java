@@ -90,24 +90,13 @@ class OwnerController {
         // Increase the counter metric
 	requests.increment();
 
-	// Start the histogram timer
-	//Histogram.Timer requestTimer = requestLatency.startTimer();
-        try {
-
-            // allow parameterless GET request for /owners to return all records
-            if (owner.getLastName() == null) {
-                owner.setLastName(""); // empty string signifies broadest possible search
-            }
-
-            // find owners by last name
-            results = this.owners.findByLastName(owner.getLastName());
-
-        } finally {
-
-            // Stop the histogram timer
-            //requestTimer.observeDuration();
-
+        // allow parameterless GET request for /owners to return all records
+        if (owner.getLastName() == null) {
+            owner.setLastName(""); // empty string signifies broadest possible search
         }
+
+        // find owners by last name
+        results = this.owners.findByLastName(owner.getLastName());
 
         if (results.isEmpty()) {
             // no owners found
