@@ -43,7 +43,7 @@ pipeline {
 		steps {
 			sh "ssh admin@34.240.215.249 sudo systemctl start petclinic"
 			sh "sleep 20s"
-			sh "curl_assert.sh"
+			sh "./curl_assert.sh"
 			sh "sleep 10s"			
 			sh "ssh admin@34.240.215.249 sudo systemctl stop petclinic"
 		}
