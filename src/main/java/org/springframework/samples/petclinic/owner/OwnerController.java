@@ -87,7 +87,7 @@ class OwnerController {
     public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model) {
         Collection<Owner> results;
 
-        // Increase the counter metric
+        // Increase the lat_requests_total counter metric
 	requests.increment();
 
         // allow parameterless GET request for /owners to return all records
