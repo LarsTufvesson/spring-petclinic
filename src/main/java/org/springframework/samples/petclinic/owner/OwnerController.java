@@ -44,9 +44,6 @@ class OwnerController {
 
     private Counter requests = Metrics.counter("lat_requests_total");
 
-    // Define a histogram metric for /prometheus
-    //static final Histogram requestLatency = Histogram.build().name("requests_latency_seconds").help("Request latency in seconds.").register();
-
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
     private final OwnerRepository owners;
 
