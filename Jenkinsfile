@@ -1,4 +1,4 @@
-def call(String buildResult) {
+def callSlack(String buildResult) {
   if ( buildResult == "SUCCESS" ) {
     slackSend color: "good", message: "Job: ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was successful"
   }
@@ -67,7 +67,7 @@ pipeline {
     post {
         always {
 	    /* Use slackNotifier.groovy from shared library and provide current build result as parameter */   
-            slackNotifier(currentBuild.currentResult)
+            callSlack(currentBuild.currentResult)
         }
     }
 }
