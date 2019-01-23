@@ -1,3 +1,5 @@
+@Library('jenkins-shared-library')_
+
 pipeline {
     agent any
 
@@ -46,6 +48,13 @@ pipeline {
                     sh "mvn -s '$SETTINGS' deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL}"
                 }
             }
+        }
+    }
+
+    post {
+        always {
+	    /* Use slackNotifier.groovy from shared library and provide current build result as parameter */   
+            slackNotifier(currentBuild.currentResult)
         }
     }
 }
