@@ -78,7 +78,7 @@ class OwnerController {
         model.put("owner", new Owner());
         return "owners/findOwners";
     }
-
+ 
     @GetMapping("/owners")
     @Timed(value = "lat_time_processFindForm")
     public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model) {
