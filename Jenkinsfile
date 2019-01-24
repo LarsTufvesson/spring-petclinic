@@ -22,7 +22,7 @@ pipeline {
     }
 
     stages {
-        stage('Build and check') {
+        stage('Build (Maven, jUnit) and check (Sonar)') {
             steps {
                 parallel(
                         install: {
@@ -39,7 +39,7 @@ pipeline {
                 }
             }
         }
-	stage('Run API tests'){
+	stage('API tests (Assertible)'){
 		steps {
 			sh "ssh admin@34.240.215.249 sudo systemctl start petclinic"
 			sh "sleep 20s"
@@ -49,7 +49,7 @@ pipeline {
 			sh "ssh admin@34.240.215.249 sudo systemctl stop petclinic"
 		}
 	}
-        stage('Deploy to production') {
+        stage('Deploy PetClinic to staging/production') {
             steps {
                 sh "ssh admin@34.240.250.242 sudo systemctl stop petclinic"
                 sh "scp target/*.jar admin@34.240.250.242:/home/admin/fromBuildServer/"
@@ -57,7 +57,7 @@ pipeline {
             }
         }
 /*
-        stage('Deploy to Artifactory') {
+        stage('Deploy PetClinic Artifactory') {
             steps {
                 configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
                     sh "mvn -s '$SETTINGS' deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL}"
