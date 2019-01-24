@@ -34,8 +34,6 @@ import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Map;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * @author Juergen Hoeller
  * @author Ken Krebs
@@ -90,7 +88,12 @@ class OwnerController {
         // Increase the lat_requests_total counter metric
 	requests.increment();
 
-	TimeUnit.SECONDS.sleep(5);
+        try {
+          Thread.sleep(5000);
+        }
+        catch(InterruptedException ex) {
+          Thread.currentThread().interrupt();
+        }
 
         // allow parameterless GET request for /owners to return all records
         if (owner.getLastName() == null) {
