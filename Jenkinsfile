@@ -56,6 +56,7 @@ pipeline {
                 sh "ssh admin@34.240.250.242 sudo systemctl start petclinic"
             }
         }
+/*
         stage('Deploy to Artifactory') {
             steps {
                 configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
@@ -63,6 +64,7 @@ pipeline {
                 }
             }
         }
+*/
     }
 
     post {
