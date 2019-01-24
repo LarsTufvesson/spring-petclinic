@@ -102,7 +102,6 @@ class OwnerController {
         catch(InterruptedException ex) {
           Thread.currentThread().interrupt();
         }
-        owner = null;
 
         if (results.isEmpty()) {
             // no owners found
