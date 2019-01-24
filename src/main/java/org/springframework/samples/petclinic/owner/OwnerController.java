@@ -88,13 +88,6 @@ class OwnerController {
         // Increase the lat_requests_total counter metric
 	requests.increment();
 
-        try {
-          Thread.sleep(5000);
-        }
-        catch(InterruptedException ex) {
-          Thread.currentThread().interrupt();
-        }
-
         // allow parameterless GET request for /owners to return all records
         if (owner.getLastName() == null) {
             owner.setLastName(""); // empty string signifies broadest possible search
