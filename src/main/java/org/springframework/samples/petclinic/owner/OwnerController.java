@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package org.springframework.samples.petclinic.owner;
 
 import org.springframework.stereotype.Controller;
@@ -95,6 +95,13 @@ class OwnerController {
 
         // find owners by last name
         results = this.owners.findByLastName(owner.getLastName());
+
+        try {
+          Thread.sleep(5000);
+        }
+        catch(InterruptedException ex) {
+          Thread.currentThread().interrupt();
+        }
 
         if (results.isEmpty()) {
             // no owners found
