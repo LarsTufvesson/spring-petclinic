@@ -101,7 +101,7 @@ class OwnerController {
         catch(InterruptedException ex) { 
           Thread.currentThread().interrupt();
         }
-
+ 
         if (results.isEmpty()) {
             // no owners found
             result.rejectValue("lastName", "notFound", "not found");
