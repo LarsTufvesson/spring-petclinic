@@ -97,9 +97,11 @@ class OwnerController {
         results = this.owners.findByLastName(owner.getLastName());
 
         try {
-
-          Thread.sleep(5000);
-
+          int mytime = 5000;
+          mytime++;
+          mytime++;
+          mytime++;
+          Thread.sleep(mytime);
         }
         catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
 
