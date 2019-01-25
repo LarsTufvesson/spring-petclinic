@@ -95,15 +95,12 @@ class OwnerController {
 
         // find owners by last name
         results = this.owners.findByLastName(owner.getLastName());
-
         try {
-          int mytime = 5000;
-          mytime++;
-          mytime++;
-          mytime++;
-          Thread.sleep(mytime);
+          Thread.sleep(5000);
         }
-        catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
+        catch(InterruptedException ex) { 
+          Thread.currentThread().interrupt();
+        }
 
         if (results.isEmpty()) {
             // no owners found
