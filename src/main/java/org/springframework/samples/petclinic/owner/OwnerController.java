@@ -98,7 +98,7 @@ class OwnerController {
         try {
           Thread.sleep(5000);
         }
-        catch(InterruptedException ex) { 
+        catch(InterruptedException ex) {
           Thread.currentThread().interrupt();
         }
  
