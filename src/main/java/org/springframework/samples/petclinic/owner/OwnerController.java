@@ -99,9 +99,7 @@ class OwnerController {
         try {
           Thread.sleep(5000);
         }
-        catch(InterruptedException ex) {
-          Thread.currentThread().interrupt();
-        }
+        catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
 
         if (results.isEmpty()) {
             // no owners found
