@@ -29,7 +29,7 @@ pipeline {
                             sh "mvn package"
                         },
                         sonar: {
-                            withSonarQubeEnv('My SonarQube Server') {
+                            withSonarQubeEnv('MySonarQube') {
                                 sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
                             }
                         }
