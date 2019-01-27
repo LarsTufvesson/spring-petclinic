@@ -52,7 +52,7 @@ pipeline {
                 }
             }
         }
-
+/*
 	stage('API tests (Assertible)'){
 		steps {
 			sh "ssh admin@34.245.202.115 sudo systemctl start petclinic"
@@ -63,6 +63,7 @@ pipeline {
 			sh "ssh admin@34.245.202.115 sudo systemctl stop petclinic"
 		}
 	}
+*/
         stage('Deploy PetClinic to staging/production') {
             steps {
                 sh "ssh admin@52.30.109.196 sudo systemctl stop petclinic"
@@ -70,7 +71,7 @@ pipeline {
                 sh "ssh admin@52.30.109.196 sudo systemctl start petclinic"
             }
         }
-/* 
+ 
         stage('Deploy PetClinic Artifactory') {
             steps {
                 configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
@@ -78,7 +79,7 @@ pipeline {
                 }
             }
         }
-*/
+
     }
 
     post {
