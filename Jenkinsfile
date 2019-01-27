@@ -55,19 +55,19 @@ pipeline {
 
 	stage('API tests (Assertible)'){
 		steps {
-			sh "ssh admin@34.240.215.249 sudo systemctl start petclinic"
+			sh "ssh admin@34.245.202.115 sudo systemctl start petclinic"
 			sh "sleep 20s"
 			sh "chmod 755 ./curl_assert.sh"
 			sh "./curl_assert.sh"
 			sh "sleep 10s"			
-			sh "ssh admin@34.240.215.249 sudo systemctl stop petclinic"
+			sh "ssh admin@34.245.202.115 sudo systemctl stop petclinic"
 		}
 	}
         stage('Deploy PetClinic to staging/production') {
             steps {
-                sh "ssh admin@34.240.250.242 sudo systemctl stop petclinic"
+                sh "ssh admin@52.30.109.196 sudo systemctl stop petclinic"
                 sh "scp target/*.jar admin@34.240.250.242:/home/admin/fromBuildServer/"
-                sh "ssh admin@34.240.250.242 sudo systemctl start petclinic"
+                sh "ssh admin@52.30.109.196 sudo systemctl start petclinic"
             }
         }
 /* 
