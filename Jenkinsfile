@@ -64,15 +64,7 @@ pipeline {
 		}
 	}
 */
-        stage('Deploy PetClinic to staging/production') {
-            steps {
-                sh "ssh admin@54.246.219.60 sudo systemctl stop petclinic"
-                sh "scp target/*.jar admin@54.246.219.60:/home/admin/fromBuildServer/"
-                sh "ssh admin@54.246.219.60 sudo systemctl start petclinic"
-            }
-        }
- 
-        stage('Deploy PetClinic Artifactory') {
+        stage('Deploy PetClinic to Artifactory') {
             steps {
                 configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
                     sh "mvn -s '$SETTINGS' deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL}"
@@ -80,6 +72,13 @@ pipeline {
             }
         }
 
+        stage('Deploy PetClinic to staging/production') {
+            steps {
+                sh "ssh admin@54.246.219.60 sudo systemctl stop petclinic"
+                sh "scp target/*.jar admin@54.246.219.60:/home/admin/fromBuildServer/"
+                sh "ssh admin@54.246.219.60 sudo systemctl start petclinic"
+            }
+        }
     }
 
     post {
