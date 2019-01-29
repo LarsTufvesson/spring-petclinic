@@ -22,7 +22,7 @@ pipeline {
     }
 
     stages {
-        stage('Build (Maven, jUnit) and check (Sonar)') {
+        stage('Build (Maven, jUnit) and check (SonarQube)') {
             steps {
                 parallel(
                         install: {
@@ -72,7 +72,7 @@ pipeline {
             }
         }
 
-        stage('Deploy PetClinic to staging/production') {
+        stage('Deploy PetClinic to production') {
             steps {
                 sh "ssh admin@54.246.219.60 sudo systemctl stop petclinic"
                 sh "scp target/*.jar admin@54.246.219.60:/home/admin/fromBuildServer/"
