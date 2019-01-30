@@ -53,16 +53,23 @@ pipeline {
             }
         }
  
-	stage('API tests (Assertible)'){
-		steps {
-			sh "ssh admin@52.211.29.193 sudo systemctl start petclinic"
-			sh "sleep 20s"
-			sh "chmod 755 ./curl_assert.sh"
-			sh "./curl_assert.sh"
-			sh "sleep 10s"			
-			sh "ssh admin@52.211.29.193 sudo systemctl stop petclinic"
-		}
-	}
+        stage('API tests (Assertible)') {
+               steps {
+                     sh "ssh admin@52.211.29.193 sudo systemctl start petclinic"
+                     sh "sleep 20s"
+                     sh "chmod 755 ./curl_assert.sh"
+                     sh "./curl_assert.sh > curl_out.json"
+                     sh "sleep 10s"
+                     script {
+                         def output = readJSON file: './curl_out.json'
+                         for (int i = 0; i < 8; ++i) {
+                             echo output[i].result
+                             assert output[i].result == 'TestPass'
+                         }
+                     }
+                     sh "ssh admin@52.211.29.193 sudo systemctl stop petclinic"
+               }
+        }
 
         stage('Deploy PetClinic to Artifactory') {
             steps {
