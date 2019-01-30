@@ -66,6 +66,7 @@ pipeline {
                              echo output[i].result
                              if (output[i].result == 'TestFail') {
                                  echo "Failure details at https://assertible.com/dashboard#/services/40a35bd7-dece-4cf4-913d-30f8a718efd5"
+                                 sh "ssh admin@52.211.29.193 sudo systemctl stop petclinic"
                              }
                              assert output[i].result == 'TestPass'
                          }
