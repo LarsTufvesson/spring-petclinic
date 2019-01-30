@@ -62,7 +62,7 @@ pipeline {
                      sh "sleep 10s"
                      script {
                          def output = readJSON file: './curl_out.json'
-                         for (int i = 0; i < 8; ++i) {
+                         for (int i = 0; i < 5; ++i) {
                              echo output[i].result
                              assert output[i].result == 'TestPass'
                          }
