@@ -64,6 +64,9 @@ pipeline {
                          def output = readJSON file: './curl_out.json'
                          for (int i = 0; i < 5; ++i) {
                              echo output[i].result
+                             if (output[i].result == 'TestFail') {
+                                 echo "Failure details at https://assertible.com/dashboard#/services/40a35bd7-dece-4cf4-913d-30f8a718efd5"
+                             }
                              assert output[i].result == 'TestPass'
                          }
                      }
