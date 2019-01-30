@@ -52,7 +52,7 @@ pipeline {
                 }
             }
         }
-/*
+ /*
 	stage('API tests (Assertible)'){
 		steps {
 			sh "ssh admin@52.211.29.193 sudo systemctl start petclinic"
