@@ -66,7 +66,7 @@ pipeline {
                              echo output[i].result
                              if (output[i].result == 'TestFail') {
                                  echo "Failure details at https://assertible.com/dashboard#/services/40a35bd7-dece-4cf4-913d-30f8a718efd5"
-                                 sh "ssh admin@52.211.29.193 sudo systemctl stop petclinic"
+                                 sh "ssh admin@34.247.181.191 sudo systemctl stop petclinic"
                              }
                              assert output[i].result == 'TestPass'
                          }
@@ -85,9 +85,9 @@ pipeline {
 
         stage('Deploy PetClinic to production') {
             steps {
-                sh "ssh admin@34.246.185.124 sudo systemctl stop petclinic"
+                sh "ssh admin@34.247.181.191 sudo systemctl stop petclinic"
                 sh "scp target/*.jar admin@34.246.185.124:/home/admin/fromBuildServer/"
-                sh "ssh admin@34.246.185.124 sudo systemctl start petclinic"
+                sh "ssh admin@34.247.181.191 sudo systemctl start petclinic"
             }
         }
     }
