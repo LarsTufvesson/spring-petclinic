@@ -85,9 +85,9 @@ pipeline {
 
         stage('Deploy PetClinic to production') {
             steps {
-                sh "ssh admin@34.247.181.191 sudo systemctl stop petclinic"
+                sh "ssh admin@34.246.185.124 sudo systemctl stop petclinic"
                 sh "scp target/*.jar admin@34.246.185.124:/home/admin/fromBuildServer/"
-                sh "ssh admin@34.247.181.191 sudo systemctl start petclinic"
+                sh "ssh admin@34.246.185.124 sudo systemctl start petclinic"
             }
         }
     }
