@@ -55,7 +55,7 @@ pipeline {
  
         stage('API tests (Assertible)') {
                steps {
-                     sh "ssh admin@34.244.18.7 sudo systemctl start petclinic"
+                     sh "ssh admin@34.242.110.253 sudo systemctl start petclinic"
                      sh "sleep 20s"
                      sh "chmod 755 ./curl_assert.sh"
                      sh "./curl_assert.sh > curl_out.json"
@@ -66,12 +66,12 @@ pipeline {
                              echo output[i].result
                              if (output[i].result == 'TestFail') {
                                  echo "Failure details at https://assertible.com/dashboard#/services/40a35bd7-dece-4cf4-913d-30f8a718efd5"
-                                 sh "ssh admin@34.244.18.7 sudo systemctl stop petclinic"
+                                 sh "ssh admin@34.242.110.253 sudo systemctl stop petclinic"
                              }
                              assert output[i].result == 'TestPass'
                          }
                      }
-                     sh "ssh admin@34.244.18.7 sudo systemctl stop petclinic"
+                     sh "ssh admin@34.242.110.253 sudo systemctl stop petclinic"
                }
         }
 
@@ -85,9 +85,9 @@ pipeline {
 
         stage('Deploy PetClinic to production') {
             steps {
-                sh "ssh admin@34.253.228.62 sudo systemctl stop petclinic"
-                sh "scp target/*.jar admin@34.253.228.62:/home/admin/fromBuildServer/"
-                sh "ssh admin@34.253.228.62 sudo systemctl start petclinic"
+                sh "ssh admin@34.245.90.150 sudo systemctl stop petclinic"
+                sh "scp target/*.jar admin@34.245.90.150:/home/admin/fromBuildServer/"
+                sh "ssh admin@34.245.90.150 sudo systemctl start petclinic"
             }
         }
     }
