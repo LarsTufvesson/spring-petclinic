@@ -55,7 +55,7 @@ pipeline {
  
         stage('API tests (Assertible)') {
                steps {
-                     sh "ssh admin@34.242.110.253 sudo systemctl start petclinic"
+                     sh "ssh admin@63.35.119.99 sudo systemctl start petclinic"
                      sh "sleep 20s"
                      sh "chmod 755 ./curl_assert.sh"
                      sh "./curl_assert.sh > curl_out.json"
@@ -66,12 +66,12 @@ pipeline {
                              echo output[i].result
                              if (output[i].result == 'TestFail') {
                                  echo "Failure details at https://assertible.com/dashboard#/services/40a35bd7-dece-4cf4-913d-30f8a718efd5"
-                                 sh "ssh admin@34.242.110.253 sudo systemctl stop petclinic"
+                                 sh "ssh admin@63.35.119.99 sudo systemctl stop petclinic"
                              }
                              assert output[i].result == 'TestPass'
                          }
                      }
-                     sh "ssh admin@34.242.110.253 sudo systemctl stop petclinic"
+                     sh "ssh admin@63.35.119.99 sudo systemctl stop petclinic"
                }
         }
 
